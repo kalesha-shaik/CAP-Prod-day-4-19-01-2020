@@ -1,0 +1,23 @@
+// https://leetcode.com/problems/minimum-size-subarray-sum/
+
+
+public class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int result = Integer.MAX_VALUE;
+        int spos = 0, epos = 0, sum = 0;
+        
+        while(epos < nums.length) {
+            sum += nums[epos];
+            if(sum >= s) {
+                while(spos <= epos && sum >= s) {
+                    int length = epos - spos + 1;
+                    result = Math.min(result, length);
+                    sum -= nums[spos++];
+                }
+            }
+            epos++;
+        }
+        
+        return result == Integer.MAX_VALUE ? 0 : result;
+    }
+}
